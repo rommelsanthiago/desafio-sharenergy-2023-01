@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-export type Custumer = {
+export type Customer = {
     id: string
     name: string,
     email: string,
@@ -10,7 +10,7 @@ export type Custumer = {
     authorId: string
  };
  
- export interface CustumerInputDTO {
+ export interface CustomerInputDTO {
     name: string,
     email: string,
     cpf: string,
@@ -18,7 +18,20 @@ export type Custumer = {
     address: string,
  };
 
- const CUSTUMER = new mongoose.Schema({
+ export interface UpdateCustomerInputDTO {
+    id: string,
+    name?: string,
+    email?: string,
+    cpf?: string,
+    phone?: string,
+    address?: string,
+ };
+
+ const CUSTOMER = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -48,4 +61,4 @@ export type Custumer = {
     timestamps: true,
 });
 
-mongoose.model('custumer', CUSTUMER);
+mongoose.model('customer', CUSTOMER);

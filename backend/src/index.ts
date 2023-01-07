@@ -1,6 +1,6 @@
 import { app } from "./controllers/app";
-import { custumerRouter } from "./controllers/routes/CustumerRoutes";
+import { customerRouter } from "./controllers/routes/CustomerRoutes";
 import { userRouter } from "./controllers/routes/UserRoutes";
 
-app.use('/custumer/', custumerRouter);
+app.use('/customer/', customerRouter);
 app.use('/user/', userRouter);

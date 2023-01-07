@@ -1,4 +1,4 @@
-import { CustomError, InvalidEmail, InvalidName, InvalidPassword, UserNotFound } from "../errors/customErros";
+import { CustomError, InvalidCredentials, InvalidPassword, InvalidUsername, UnathorizedUser, Unauthorized, UserNotFound } from "../errors/customErros";
 import { LoginInputDTO, User, UserInputDTO } from "../model/User";
 import { UserRepository } from "./UserRepository";
 
@@ -25,7 +25,7 @@ export class UserBusiness {
         };
   
         if (username.length < 4) {
-          throw new InvalidName();
+          throw new InvalidUsername();
         };
   
         if (password.length < 6) {
@@ -73,7 +73,7 @@ export class UserBusiness {
           const hashCompare = await hashGenerator.compareHash(password, user.password)
     
           if (!hashCompare) {
-            throw new InvalidPassword()
+            throw new InvalidCredentials()
           }
     
           const payload: AuthenticationData = {

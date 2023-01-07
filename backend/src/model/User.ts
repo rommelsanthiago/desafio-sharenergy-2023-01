@@ -19,6 +19,10 @@ export type User = {
  }
 
 const USER = new mongoose.Schema({
+    id: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true
