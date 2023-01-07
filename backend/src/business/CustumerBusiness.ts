@@ -1,17 +1,24 @@
-import { CustomError, InvalidEmail } from "../errors/customErros";
+import { CustomError, InvalidEmail, Unauthorized } from "../errors/customErros";
 import { Custumer, CustumerInputDTO } from "../model/Custumer";
 import { CustumerRepository } from "./CustumerRepository";
 
 import { IdGenerator } from "../services/idGenerator";
+import { Authenticator } from "../services/Authenticator";
 
 const idGenerator = new IdGenerator();
+const authenticator = new Authenticator();
 
 export class CustumerBusiness {
     constructor(private userDatabase: CustumerRepository) {}
 
-    public createCustumer = async (input: CustumerInputDTO): Promise<string> => {
+    public createCustumer = async (input: CustumerInputDTO, token: string): Promise<string> => {
       try {
         let { name, email, phone, address, cpf } = input;
+        const tokenData = authenticator.getTokenData(token)
+      
+        if(!tokenData) {
+          throw new Unauthorized()
+        }
   
         if (!name || !phone || !email || !address || !cpf) {
           throw new CustomError(
@@ -37,7 +44,8 @@ export class CustumerBusiness {
           email,
           phone,
           cpf,
-          address
+          address,
+          authorId: tokenData.id
         };
         
         await this.userDatabase.createCustumer(custumer);

@@ -8,6 +8,7 @@ export class CustumerController {
     public createCustumer = async (req: Request, res: Response) => {
       try {
         const { name, email, phone, cpf, address } = req.body;
+        const token = req.headers.authorization as string;
 
         const input: CustumerInputDTO = {
           name,
@@ -17,7 +18,7 @@ export class CustumerController {
           address
         };
 
-        await this.custumerBusiness.createCustumer(input);
+        await this.custumerBusiness.createCustumer(input, token);
 
         res.status(201).send({ message: `Cliente ${input.name} criado com sucesso!`});
       } catch (error: any) {

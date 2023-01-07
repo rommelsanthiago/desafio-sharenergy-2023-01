@@ -13,6 +13,11 @@ export type User = {
     role: string
  };
 
+ export interface LoginInputDTO {
+    username: string,
+    password: string
+ }
+
 const USER = new mongoose.Schema({
     username: {
         type: String,

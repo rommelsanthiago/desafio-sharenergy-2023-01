@@ -6,7 +6,8 @@ export type Custumer = {
     email: string,
     cpf: string,
     phone: string,
-    address: string
+    address: string,
+    authorId: string
  };
  
  export interface CustumerInputDTO {
@@ -14,7 +15,7 @@ export type Custumer = {
     email: string,
     cpf: string,
     phone: string,
-    address: string
+    address: string,
  };
 
  const CUSTUMER = new mongoose.Schema({
@@ -35,6 +36,10 @@ export type Custumer = {
         required: true
     },
     address: {
+        type: String,
+        required: true
+    },
+    authorId: {
         type: String,
         required: true
     }
