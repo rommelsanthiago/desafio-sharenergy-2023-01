@@ -111,4 +111,36 @@ export class CustomerBusiness {
         throw new CustomError(400, error.message);
       };
     };  
-}  
+
+    public deleteCustomer =async (id: string, token: string) => {
+      try {
+        const tokenData = authenticator.getTokenData(token)
+      
+        if(!tokenData) {
+          throw new Unauthorized()
+        }
+
+        if(tokenData.role !== "admin") {
+          throw new UnathorizedUser()
+        }
+
+        if (!id) {
+          throw new CustomError(
+            400,
+            'Preencha o "id" do cliente'
+          );
+        };
+
+        const customerExist = await this.customerDatabase.getCustomerById(id)
+
+        if(!customerExist){
+          throw new CustomerNotFound()
+        }
+
+        await this.customerDatabase.deleteCustomer(id)
+        
+      } catch (error: any) {
+        throw new CustomError(400, error.message);
+      };
+    };
+};

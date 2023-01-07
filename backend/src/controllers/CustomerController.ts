@@ -43,6 +43,19 @@ export class CustomerController {
         res.status(201).send({ message: `Cliente atualizado com sucesso!` });
       } catch (error: any) {
         res.status(400).send(error.message);
-      }
+      };
+    };
+
+    public deleteCustomer =async (req: Request, res: Response) => {
+      try {
+        const token = req.headers.authorization as string;
+        const id = req.params.id as string;
+
+        await this.customerBusiness.deleteCustomer(id, token);
+        
+        res.status(201).send({ message: `Cliente deletado com sucesso!` });
+      } catch (error: any) {
+        res.status(400).send(error.message);
+      };
     };
 };

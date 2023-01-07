@@ -37,4 +37,14 @@ export class CustomerDatabase extends BaseDatabase implements CustomerRepository
         throw new CustomError(400, error.message);
       };
     };
+
+    public deleteCustomer = async (id: string) => {
+      try {
+
+        await CUSTOMER.findOneAndDelete({id: id});
+        
+      } catch (error: any) {
+        throw new CustomError(400, error.message);
+      };
+    };
 };

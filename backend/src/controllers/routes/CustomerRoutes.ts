@@ -11,4 +11,5 @@ const customerController = new CustomerController(customerBusiness)
 
 customerRouter.post('/createCustomer', (req, res)=> customerController.createCustomer(req, res))
 customerRouter.put('/updateCustomer/:id', (req, res)=> customerController.updateCustomer(req, res))
+customerRouter.delete('/deleteCustomer/:id', (req, res)=> customerController.deleteCustomer(req, res))
 
