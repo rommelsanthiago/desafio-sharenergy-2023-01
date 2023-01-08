@@ -40,6 +40,12 @@ export class UserNotFound extends CustomError{
     }
 }
 
+export class CustomersNotFound extends CustomError{ 
+    constructor(){
+        super(404, "Sem usuários cadastrados")
+    }
+}
+
 export class CustomerNotFound extends CustomError{ 
     constructor(){
         super(404, "Cliente não encontrado")

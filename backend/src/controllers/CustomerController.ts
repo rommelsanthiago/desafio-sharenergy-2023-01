@@ -5,6 +5,18 @@ import { CustomerInputDTO, UpdateCustomerInputDTO } from "../model/Customer";
 export class CustomerController {
     constructor(private customerBusiness: CustomerBusiness){}
 
+    public getCustomers =async (req: Request, res: Response) => {
+      try {
+        const token = req.headers.authorization as string;
+
+        const customers = await this.customerBusiness.getCustomers(token);
+        
+        res.status(200).send(customers);
+      } catch (error: any) {
+        res.status(400).send(error.message);
+      };
+    };
+
     public createCustomer = async (req: Request, res: Response) => {
       try {
         const { name, email, phone, cpf, address } = req.body;

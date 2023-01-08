@@ -1,13 +1,26 @@
 import mongoose from "mongoose";
 import { CustomerRepository } from "../business/CustomerRepository";
 import { CustomError } from "../errors/customErros";
-import { Customer, UpdateCustomerInputDTO } from "../model/Customer";
+import { Customer, Customers, UpdateCustomerInputDTO } from "../model/Customer";
 import { BaseDatabase } from "./BaseDatabase";
 import "../model/Customer";
 
 const CUSTOMER = mongoose.model('customer');
 
 export class CustomerDatabase extends BaseDatabase implements CustomerRepository {
+
+    public getCustomers =async () => {
+      try {
+        
+        const custumers = await CUSTOMER.find();
+
+        return custumers;
+
+      } catch (error: any) {
+        throw new CustomError(400, error.message);
+      };
+    };
+
     public createCustomer = async (customer: Customer) => {
       try {
         

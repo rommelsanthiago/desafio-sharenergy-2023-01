@@ -4,7 +4,8 @@ import {
   InvalidEmail, 
   InvalidName, 
   UnathorizedUser, 
-  Unauthorized 
+  Unauthorized, 
+  CustomersNotFound
 } from "../errors/customErros";
 import { Customer, CustomerInputDTO, UpdateCustomerInputDTO } from "../model/Customer";
 import { CustomerRepository } from "./CustomerRepository";
@@ -17,6 +18,27 @@ const authenticator = new Authenticator();
 
 export class CustomerBusiness {
     constructor(private customerDatabase: CustomerRepository) {}
+
+    public getCustomers =async (token: string) => {
+      try {
+        const tokenData = authenticator.getTokenData(token)
+      
+        if(!tokenData) {
+          throw new Unauthorized()
+        }
+
+        const customers = await this.customerDatabase.getCustomers();
+
+        if(!customers) {
+          throw new CustomersNotFound()
+        }
+
+        return customers;
+        
+      } catch (error: any) {
+        throw new CustomError(400, error.message);
+      };
+    };
 
     public createCustomer = async (input: CustomerInputDTO, token: string): Promise<string> => {
       try {

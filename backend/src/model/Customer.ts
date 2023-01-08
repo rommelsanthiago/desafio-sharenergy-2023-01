@@ -9,6 +9,17 @@ export type Customer = {
     address: string,
     authorId: string
  };
+
+ export interface Customers {
+    id: string
+    name: string,
+    email: string,
+    cpf: string,
+    phone: string,
+    address: string,
+    authorId: string,
+    createdAt: Date
+ }
  
  export interface CustomerInputDTO {
     name: string,
