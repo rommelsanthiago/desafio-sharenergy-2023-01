@@ -19,8 +19,12 @@ const authenticator = new Authenticator();
 export class CustomerBusiness {
     constructor(private customerDatabase: CustomerRepository) {}
 
-    public getCustomers =async (token: string) => {
+    public getCustomers = async (token: string) => {
       try {
+        if(!token) {
+          throw new Unauthorized()
+        }
+
         const tokenData = authenticator.getTokenData(token)
       
         if(!tokenData) {
@@ -36,13 +40,18 @@ export class CustomerBusiness {
         return customers;
         
       } catch (error: any) {
-        throw new CustomError(400, error.message);
+        throw new CustomError(error.status, error.message);
       };
     };
 
     public createCustomer = async (input: CustomerInputDTO, token: string): Promise<string> => {
       try {
         let { name, email, phone, address, cpf } = input;
+
+        if(!token) {
+          throw new Unauthorized()
+        }
+
         const tokenData = authenticator.getTokenData(token)
       
         if(!tokenData || !tokenData.id) {
@@ -92,6 +101,11 @@ export class CustomerBusiness {
     public updateCustomer = async (input: UpdateCustomerInputDTO, token: string) => {
       try {
         const { id, name, email, phone, cpf, address } = input;
+
+        if(!token) {
+          throw new Unauthorized()
+        }
+
         const tokenData = authenticator.getTokenData(token)
       
         if(!tokenData) {
@@ -136,6 +150,10 @@ export class CustomerBusiness {
 
     public deleteCustomer =async (id: string, token: string) => {
       try {
+        if(!token) {
+          throw new Unauthorized()
+        }
+        
         const tokenData = authenticator.getTokenData(token)
       
         if(!tokenData) {
