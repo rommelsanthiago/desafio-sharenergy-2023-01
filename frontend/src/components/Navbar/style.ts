@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const Navbar = styled.nav`
-    grid-area: nav;
-    width: 20vw;
+    width: 20%;
+    min-height: 90vh;
+    float: left;
+    background-color: #141414;
+    background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
 `

@@ -8,6 +8,7 @@ const Navbar = () => {
         <S.Navbar>
             <ul>
                 <Link href='/' legacyBehavior><a><li>Home</li></a></Link>
+                <Link href='/users/1' legacyBehavior><a><li>USERS</li></a></Link>
                 <Link href='/cats' legacyBehavior><a><li>HTTP Cats</li></a></Link>
                 <Link href='/dogs' legacyBehavior><a><li>Doguinhos Aleatórios</li></a></Link>
                 <Link href='/customers' legacyBehavior><a><li>Clientes</li></a></Link>
